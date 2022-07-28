@@ -37,22 +37,14 @@ public class MemberService {
     }
 
     /**
-<<<<<<< HEAD
-     * 전체 회원 조회
-=======
      * 회원 전체 조회
->>>>>>> d407a93943c70b90ceebf985e24b6bd63f4c8a91
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
 
     /**
-<<<<<<< HEAD
-     * 한 회원만 조회
-=======
      * 회원 한명 조회
->>>>>>> d407a93943c70b90ceebf985e24b6bd63f4c8a91
      */
     public Member findOne(Long memberId) {
         return memberRepository.findOne(memberId);
