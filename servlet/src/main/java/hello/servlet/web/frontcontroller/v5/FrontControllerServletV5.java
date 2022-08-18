@@ -53,14 +53,17 @@ public class FrontControllerServletV5 extends HttpServlet {
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // handler는 controller를 의미한다.
         Object handler = gethandler(request);
         if (handler == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
 
+        // adapter는 controller에 맞는 handlerAdapter를 의미한다.
         MyHandlerAdapter adapter = getHandlerAdapter(handler);
 
+        // handle을 통해 내부에서 controller의 process를 진행하고 ModelView를 반환한다.
         ModelView mv = adapter.handle(request, response, handler);
 
 
