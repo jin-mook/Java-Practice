@@ -1,41 +1,33 @@
-package com.multicampus.biz.user;
+package kt.com.springproject.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-import com.multicampus.biz.common.JDBCUtil;
+import kt.com.springproject.board.JDBCUtil;
+import org.springframework.stereotype.Repository;
 
-// 2. DAO(Data Access Object) Å¬·¡½º
+@Repository
 public class UserDAO {
-	// JDBC °ü·Ã º¯¼ö ¼±¾ð
 	private Connection conn = null;
 	private PreparedStatement stmt = null;
 	private ResultSet rs = null;
 	
-	// USERS Å×ÀÌºí °ü·Ã SQL ¸í·É¾îµé
 	private final String USER_GET = "select * from users where id=? and password=?";
 	
-	// CRUD ±â´ÉÀÇ ¸Þ¼Òµå
-	// È¸¿ø µî·Ï
 	public void insertUser(UserVO vo) {
-		System.out.println("===> JDBC ±â¹ÝÀ¸·Î insertUser() ±â´É Ã³¸®");
 	}
 	
-	// È¸¿ø ¼öÁ¤
 	public void updateUser(UserVO vo) {
-		System.out.println("===> JDBC ±â¹ÝÀ¸·Î updateUser() ±â´É Ã³¸®");
-	}	
+	}
 	
-	// È¸¿ø »èÁ¦
 	public void deleteUser(UserVO vo) {
-		System.out.println("===> JDBC ±â¹ÝÀ¸·Î deleteUser() ±â´É Ã³¸®");
-	}	
+	}
 	
-	// È¸¿ø »ó¼¼ Á¶È¸
+	// È¸ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È¸
 	public UserVO getUser(UserVO vo) {
-		System.out.println("===> JDBC ±â¹ÝÀ¸·Î getUser() ±â´É Ã³¸®");
+		System.out.println("===> JDBC ê¸°ë°˜ìœ¼ë¡œ getUser êµ¬í˜„");
 		UserVO user = null;
 		try {
 			conn = JDBCUtil.getConnection();
@@ -58,9 +50,9 @@ public class UserDAO {
 		return user;
 	}
 	
-	// È¸¿ø ¸ñ·Ï °Ë»ö
+	// È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
 	public List<UserVO> getUserList(UserVO vo) {
-		System.out.println("===> JDBC ±â¹ÝÀ¸·Î getUserList() ±â´É Ã³¸®");
+		System.out.println("===> JDBC ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getUserList() ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½");
 		return null;
 	}
 }

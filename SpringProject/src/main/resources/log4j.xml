@@ -17,7 +17,7 @@
 	</appender>
 
 	<logger name="org.springframework" additivity="false">
-		<level value="DEBUG" />
+		<level value="INFO" />
 		<appender-ref ref="console" />
 	</logger>   
 

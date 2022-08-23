@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="kt.com.springproject" />
+
+    <!-- 횡단관심에 해당하는 Advice 클래스를 등록한다. -->
+    <bean id="log" class="kt.com.springproject.common.LogAdvice"></bean>
+    <bean id="afterReturning" class="kt.com.springproject.common.AfterReturningAdvice"></bean>
+    <bean id="afterThrowing" class="kt.com.springproject.common.AfterThrowingAdvice"></bean>
+    <bean id="around" class="kt.com.springproject.common.AroundAdvice"></bean>
+
+    <!-- AOP -->
+    <aop:config>
+        <aop:pointcut id="allPointcut" expression="execution(* kt.com.springproject..*Impl.*(..))"/>
+        <aop:pointcut id="getPointcut" expression="execution(* kt.com.springproject..*Impl.get*(..))"/>
+
+        <aop:aspect ref="log">
+            <aop:before pointcut-ref="allPointcut" method="printLog" />
+        </aop:aspect>
+
+        <aop:aspect ref="afterReturning">
+            <aop:after-returning pointcut-ref="getPointcut" method="afterLog" returning="returnObj"/>
+        </aop:aspect>
+
+        <aop:aspect ref="afterThrowing">
+            <aop:after-throwing pointcut-ref="allPointcut" method="exceptionLog" throwing="exceptionObj"/>
+        </aop:aspect>
+
+<!--        <aop:aspect ref="around">-->
+<!--            <aop:after-throwing pointcut-ref="allPointcut" method="exceptionLog" throwing="exceptionObj"/>-->
+<!--        </aop:aspect>-->
+    </aop:config>
+
+
+</beans>
