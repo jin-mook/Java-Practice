@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f2594495-3d29-4a92-b754-954fe0b43d85" name="변경" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/SpringProjectApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/board/BoardDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/board/BoardService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/board/BoardServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/board/BoardVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/board/JDBCUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/common/AfterReturningAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/common/AfterThrowingAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/common/AroundAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/common/LogAdvice.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/user/UserDAO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/user/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/user/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/kt/com/springproject/user/UserVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/applicationContext.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/business-layer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/business-layer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kt/com/springproject/BoardServiceClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kt/com/springproject/SpringProjectApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/kt/com/springproject/UserServiceClient.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2DjxAs4gv1549HwU9YruxuAy7UW" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="compactDirectories" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showModules" value="false" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/jinmook/Desktop/Java-Practice/SpringProject",
+    "spring.configuration.checksum": "34c18ec37a58f1e641f2882bf63aed1f"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+      <recent name="$PROJECT_DIR$/src/main/java/kt/com/springproject/user" />
+      <recent name="$PROJECT_DIR$/src/main/java/kt/com/springproject/board" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="kt.com.springproject.board" />
+    </key>
+  </component>
+  <component name="RunManager" selected="애플리케이션.BoardServiceClient">
+    <configuration name="BoardServiceClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="kt.com.springproject.BoardServiceClient" />
+      <module name="SpringProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kt.com.springproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="kt.com.springproject.UserServiceClient" />
+      <module name="SpringProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kt.com.springproject.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringProjectApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="SpringProject" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kt.com.springproject.SpringProjectApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="애플리케이션.BoardServiceClient" />
+        <item itemvalue="애플리케이션.UserServiceClient" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="f2594495-3d29-4a92-b754-954fe0b43d85" name="변경" comment="" />
+      <created>1661226154380</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1661226154380</updated>
+      <workItem from="1661226155552" duration="15262000" />
+      <workItem from="1661299239980" duration="13336000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
