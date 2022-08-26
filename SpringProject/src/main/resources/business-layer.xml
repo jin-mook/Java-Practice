@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	                    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	                    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+	
+	<!-- 실제로 사용할 DAO 하나만 등록 -->
+	<bean class="com.kt.biz.board.BoardDAOSpring"/>
+	
+ 	
+ 	<!-- IoC에 대한 Annotation 설정 -->
+ 	<context:component-scan base-package="com.kt.biz"/>
+ 	
+ 	<!--AOP에 대한 Annotation 설정 -->
+ 	<aop:aspectj-autoproxy/> 
+ 	
+ 	<!-- DataSource 등록 -->
+ 	<context:property-placeholder location="classpath:datasouce.properties"/>
+ 	
+ 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+ 	      destroy-method="close">
+ 		<property name="driverClassName" value="${datasource.driverClass}"/>
+ 		<property name="url"             value="${datasource.url}"/>
+ 		<property name="username"        value="${datasource.username}"/>
+ 		<property name="password"        value="${datasource.password}"/>
+ 	</bean>
+ 	
+ 	<!-- JdbcTemplate 등록 -->
+ 	<bean class="org.springframework.jdbc.core.JdbcTemplate">
+ 		<property name="dataSource" ref="dataSource"/>
+ 	</bean>
+ 	
+ 	<!-- 트랜젝션 자동 처리 설정 -->
+ 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+ 		<property name="dataSource" ref="dataSource"/>
+ 	</bean>
+ 	
+ 	<tx:advice id="txAdvice" transaction-manager="txManager">
+ 		<tx:attributes>
+ 			<tx:method name="*" rollback-for="Exception"/>
+ 		</tx:attributes>
+ 	</tx:advice>
+ 	
+ 	<aop:config>
+ 		<aop:pointcut id="txPointcut" expression="execution(* com.kt.biz..*Impl.*(..))"/>
+ 		
+ 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice"/>
+ 	</aop:config>
+ 	
+ 	<!-- 횡단관심에 해당하는 Advice 클래스를 등록한다. 
+ 	<bean id="log"            class="com.kt.biz.common.LogAdvice"></bean>
+ 	<bean id="afterReturning" class="com.kt.biz.common.AfterReturningAdvice"></bean>
+ 	<bean id="afterThrowing"  class="com.kt.biz.common.AfterThrowingAdvice"></bean>
+ 	-->
+ 	
+ 	<!-- AOP 설정 
+	<aop:config>
+		<aop:pointcut id="allPointcut" expression="execution(* com.kt.biz..*Impl.*(..))"/>
+		<aop:pointcut id="getPointcut" expression="execution(* com.kt.biz..*Impl.get*(..))"/>
+
+		<aop:aspect ref="log">
+			<aop:before pointcut-ref="allPointcut" method="printLog"/>
+		</aop:aspect>
+		
+		<aop:aspect ref="afterReturning">
+			<aop:after-returning pointcut-ref="getPointcut" method="afterLog" returning="returnObj"/>
+		</aop:aspect>
+		
+		<aop:aspect ref="afterThrowing">
+			<aop:after-throwing pointcut-ref="allPointcut" method="exceptionLog" throwing="exceptionObj"/>
+		</aop:aspect>
+		
+		<aop:aspect ref="around">
+			<aop:around pointcut-ref="allPointcut" method="aroundLog"/>
+		</aop:aspect>
+	</aop:config>
+	-->
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+

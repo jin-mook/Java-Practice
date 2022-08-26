@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 스프링 컨테이너가 생성할 객체들을 bean 등록한다. 
+	<bean id="tv" 
+	      class="com.kt.tv.SamsungTV"
+	      init-method="멤버변수초기화"
+	      destroy-method="자원해제"
+	      lazy-init="false"
+	      scope="singleton"></bean>
+
+	// 생성자 인젝션 설정
+	<bean id="speaker" class="com.kt.tv.SonySpeaker"/>	
+	
+	<bean id="tv" class="com.kt.tv.GoogleTV">		
+		<constructor-arg ref="speaker"/>
+		<constructor-arg value="1700000"/>
+	</bean>
+
+	// Setter 인젝션 설정
+	<bean id="speaker" class="com.kt.tv.AppleSpeaker"/>	
+	
+	<bean id="tv" class="com.kt.tv.GoogleTV">		
+		<property name="speaker" ref="speaker"/>
+		<property name="price" value="1500000"/>
+	</bean>
+
+	
+	<bean id="speaker" class="com.kt.tv.AppleSpeaker"/>	
+	
+	<bean id="tv" class="com.kt.tv.GoogleTV" p:speaker-ref="speaker" p:price="1200000"/>
+	
+	<bean id="list" class="com.kt.collection.CollectionBean">
+	
+		<property name="addressList">
+		
+			<props>
+				<prop key="둘리">쌍문동</prop>
+				<prop key="도우너">까치산</prop>
+				<prop key="또치">천호동</prop>
+			</props>
+		
+		</property>
+	
+	</bean>
+	-->
+	
+	<context:component-scan base-package="com.kt"/>
+	
+	<!-- 
+		bean 등록 		: 유지보수 과정에서 변경되는 객체
+		@Componet 설정	: 유지보수 과정에서 변경되지 않는 객체
+	-->
+	<bean class="com.kt.tv.AppleSpeaker"/>
+	
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
