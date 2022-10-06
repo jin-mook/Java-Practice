@@ -12,15 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class MemberServiceTest {
 
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
     @Autowired EntityManager em;
 
     @Test
@@ -35,7 +34,7 @@ public class MemberServiceTest {
         // then
         em.flush();  // 없으면 persist 즉, 영속성 컨텍스트에만 member가 존재하고 실제 insert는 하지 않고 롤백한다.
                      // em.flush()는 영속성 컨텍스트에 있는 것들을 직접 쿼리 실행을 해준다.
-        Assert.assertEquals(member, memberRepository.findOne(savedId));
+        Assert.assertEquals(member, memberRepository.findById(savedId).get());
     }
 
     @Test(expected = IllegalStateException.class)
