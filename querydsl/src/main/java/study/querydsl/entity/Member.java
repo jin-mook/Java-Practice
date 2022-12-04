@@ -1,4 +1,4 @@
-package study.datajpa.entity;
+package study.querydsl.entity;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"id", "username", "age"})
-public class Member extends BaseEntity {
+public class Member {
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -22,7 +22,11 @@ public class Member extends BaseEntity {
     private Team team;
 
     public Member(String username) {
-        this.username = username;
+        this(username, 0, null);
+    }
+
+    public Member(String username, int age) {
+        this(username, age, null);
     }
 
     public Member(String username, int age, Team team) {
@@ -33,13 +37,8 @@ public class Member extends BaseEntity {
         }
     }
 
-    public void changeTeam(Team team) {
+    private void changeTeam(Team team) {
         this.team = team;
         team.getMembers().add(this);
-    }
-
-    public Member(String username, int age) {
-        this.username = username;
-        this.age = age;
     }
 }

@@ -1,4 +1,7 @@
 spring:
+  profiles:
+    active: test
+
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
@@ -11,12 +14,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+#        use_sql_comments: true   # jpql 확인 가능 옵션
+#        show_sql: true
 
-  data:
-    web:
-      pageable:
-        default-page-size: 10
-        max-page-size: 2000
-logging:
-  level:
+logging.level:
     org.hibernate.SQL: debug
