@@ -16,20 +16,32 @@ import java.io.IOException;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain1(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated();
 
 //        http.formLogin();   // form 인증 설정
         http.httpBasic();   // httpBasic 인증 설정
 //        http.apply(new CustomSecurityConfigure().setFlag(false));
         http.httpBasic().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
-        // custom 설정 -> 가장 우선순위를 가짐
+//         custom 설정 -> 가장 우선순위를 가짐
 //        http.exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
 //            @Override
 //            public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
 //                System.out.println("custom entryPoint");
 //            }
 //        });
+        return http.build();
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/member/**").permitAll() // token 설정 전까지 오픈
+                .antMatchers("/api-document/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .anyRequest().authenticated(); // 그 외 모든 요청에 대해 인증 필요
+
+        http.formLogin();   // form 인증 설정
         return http.build();
     }
 }
