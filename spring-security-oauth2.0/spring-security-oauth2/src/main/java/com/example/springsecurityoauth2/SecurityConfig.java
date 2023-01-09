@@ -16,13 +16,14 @@ import java.io.IOException;
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain1(HttpSecurity http) throws Exception {
         http.authorizeRequests().anyRequest().authenticated();
 
-//        http.formLogin();   // form 인증 설정
+        http.formLogin();   // form 인증 설정
         http.httpBasic();   // httpBasic 인증 설정
+        http.csrf();
 //        http.apply(new CustomSecurityConfigure().setFlag(false));
-        http.httpBasic().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+//        http.httpBasic().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         // custom 설정 -> 가장 우선순위를 가짐
 //        http.exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
 //            @Override
@@ -30,6 +31,15 @@ public class SecurityConfig {
 //                System.out.println("custom entryPoint");
 //            }
 //        });
+        return http.build();
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+        http.authorizeRequests().antMatchers("/api/**").authenticated();
+
+        http.formLogin();   // form 인증 설정
+        http.csrf();
         return http.build();
     }
 }
