@@ -36,10 +36,20 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain2(HttpSecurity http) throws Exception {
+<<<<<<< HEAD
         http.authorizeRequests().antMatchers("/api/**").authenticated();
 
         http.formLogin();   // form 인증 설정
         http.csrf();
+=======
+        http.authorizeRequests()
+                .antMatchers("/member/**").permitAll() // token 설정 전까지 오픈
+                .antMatchers("/api-document/**").permitAll()
+                .antMatchers("/swagger-ui/**").permitAll()
+                .anyRequest().authenticated(); // 그 외 모든 요청에 대해 인증 필요
+
+        http.formLogin();   // form 인증 설정
+>>>>>>> 6c6d53c9ec9f406c8c98318c95e1cd6538f19c86
         return http.build();
     }
 }
