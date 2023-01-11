@@ -2,6 +2,10 @@ package security.oauth;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
 import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -39,6 +43,29 @@ public class IndexController {
         log.info("redirectUri = {}", redirectUri);
 
         return "index";
+    }
+
+    // 인증 객체 가져오기 1
+    @GetMapping("/user")
+    public OAuth2User user(Authentication authentication) {
+        OAuth2AuthenticationToken authentication1 = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+        OAuth2AuthenticationToken authentication2 = (OAuth2AuthenticationToken) authentication;
+
+        return authentication2.getPrincipal();
+    }
+
+    // 인증 객체 가져오기 2
+    @GetMapping("/oauth2User")
+    public OAuth2User oAuth2User(@AuthenticationPrincipal OAuth2User oAuth2User) {
+        System.out.println("oAuth2User = " + oAuth2User);
+        return oAuth2User;
+    }
+
+    // 인증 객체 가져오기 3
+    @GetMapping("/oidcUser")
+    public OidcUser oidcUser(@AuthenticationPrincipal OidcUser oidcUser) {
+        System.out.println("oidcUser = " + oidcUser);
+        return oidcUser;
     }
 
     @GetMapping("/user")
