@@ -6,7 +6,7 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak:
+          keycloak1:
             client-id: oauth2-client-app   # 필수
             client-secret: R7sT2hZ2fpZpI21FwsdWUuYBJgVj0hdv  # 필수
             client-name: oauth2-client-app
@@ -14,25 +14,26 @@ spring:
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_basic
             scope: openid,profile
+            provider: keycloak
 
           keycloakWithPKCE:
             client-id: oauth2-client-app2   # 필수
-            client-secret: R7sT2hZ2fpZpI21FwsdWUuYBJgVj0hdv  # 필수
+            client-secret: p1hQUIjpSamOb69Hh9An22D6Edy1PMXm  # 필수
             client-name: oauth2-client-app2
             redirect-uri: http://localhost:8081/login/oauth2/code/keycloak # 필수
             authorization-grant-type: authorization_code
             client-authentication-method: client_secret_basic
             scope: openid,profile
             clientAuthenticationMethod: none
+            provider: keycloak
 
           keycloak2:
             client-id: oauth2-client-app3   # 필수
-            client-secret: R7sT2hZ2fpZpI21FwsdWUuYBJgVj0hdv  # 필수
-            client-name: oauth2-client-app3
             redirect-uri: http://localhost:8081/home # 필수
+            scope: openid,profile
             authorization-grant-type: implicit
             client-authentication-method: none
-            scope: openid,profile,email
+            provider: keycloak
 
 
         provider:
