@@ -11,6 +11,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.ClientRegistrations;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestResolver;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
@@ -33,16 +34,30 @@ public class Oauth2ClientConfig {
 //                .deleteCookies("JSESSIONID");
 //        return http.build();
 //    }
+//    @Bean
+//    SecurityFilterChain oauth2SecurityFilterChain(HttpSecurity http) throws Exception {
+//        http.authorizeHttpRequests(request -> request.requestMatchers("/login").permitAll()
+//                .anyRequest().authenticated());
+//        http.oauth2Login(oauth2 -> oauth2.loginPage("/login")
+//                .authorizationEndpoint(authorizationEndpointConfig ->
+//                        authorizationEndpointConfig.baseUri("/oauth2/v1/authorization"))
+//                .redirectionEndpoint(redirectionEndpointConfig ->
+//                        redirectionEndpointConfig.baseUri("/login/v1/oauth2/code/*")));
+//        return http.build();
+//    }
+
     @Bean
-    SecurityFilterChain oauth2SecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(request -> request.requestMatchers("/login").permitAll()
-                .anyRequest().authenticated());
-        http.oauth2Login(oauth2 -> oauth2.loginPage("/login")
-                .authorizationEndpoint(authorizationEndpointConfig ->
-                        authorizationEndpointConfig.baseUri("/oauth2/v1/authorization"))
-                .redirectionEndpoint(redirectionEndpointConfig ->
-                        redirectionEndpointConfig.baseUri("/login/v1/oauth2/code/*")));
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authRequest -> authRequest.requestMatchers("/home")
+                .permitAll().anyRequest().authenticated());
+        http.oauth2Login(authLogin -> authLogin.authorizationEndpoint(
+                authEndpoint -> authEndpoint.authorizationRequestResolver(customOAuth2AuthorizationRequestResolver())));
+        http.logout().logoutSuccessUrl("/home");
         return http.build();
+    }
+
+    private OAuth2AuthorizationRequestResolver customOAuth2AuthorizationRequestResolver() {
+        return new CustomOAuth2AuthorizationRequestResolver(clientRegistrationRepository, "/oauth2/authorization");
     }
 
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {

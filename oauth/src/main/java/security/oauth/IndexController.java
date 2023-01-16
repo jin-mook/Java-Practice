@@ -34,13 +34,13 @@ public class IndexController {
     @GetMapping("/")
     public String index() {
 
-        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak");
-
-        String clientId = clientRegistration.getClientId();
-        log.info("clientId = {}", clientId);
-
-        String redirectUri = clientRegistration.getRedirectUri();
-        log.info("redirectUri = {}", redirectUri);
+//        ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak1");
+//
+//        String clientId = clientRegistration.getClientId();
+//        log.info("clientId = {}", clientId);
+//
+//        String redirectUri = clientRegistration.getRedirectUri();
+//        log.info("redirectUri = {}", redirectUri);
 
         return "index";
     }
@@ -68,7 +68,7 @@ public class IndexController {
         return oidcUser;
     }
 
-    @GetMapping("/user")
+//    @GetMapping("/user")
     public OAuth2User user(String accessToken) {
         ClientRegistration clientRegistration = clientRegistrationRepository.findByRegistrationId("keycloak");
         OAuth2AccessToken oAuth2AccessToken = new OAuth2AccessToken(
