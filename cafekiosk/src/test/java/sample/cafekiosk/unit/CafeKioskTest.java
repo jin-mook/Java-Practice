@@ -1,6 +1,7 @@
 package sample.cafekiosk.unit;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverages.Americano;
 import sample.cafekiosk.unit.beverages.Latte;
@@ -105,12 +106,16 @@ class CafeKioskTest {
 
     @Test
     void createOrderWithCurrentTime() {
+        // given
         CafeKiosk cafeKiosk = new CafeKiosk();
         Americano americano = new Americano();
 
         cafeKiosk.add(americano);
 
+        // when
         Order order = cafeKiosk.createOrder(LocalDateTime.of(2023, 1, 17, 10, 0));
+
+        // then
         assertThat(order.getBeverages()).hasSize(1);
         assertThat(order.getBeverages().get(0).getName()).isEqualTo("아메리카노");
     }
@@ -126,7 +131,6 @@ class CafeKioskTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("주문 시간이 아닙니다. 관리자에게 문의하세요.");
     }
-
 }
 
 
