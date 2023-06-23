@@ -27,7 +27,7 @@ public class Product extends BaseEntity {
     private int price;
 
     @Builder
-    public Product(Long id, String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
+    private Product(Long id, String productNumber, ProductType type, ProductSellingStatus sellingStatus, String name, int price) {
         this.id = id;
         this.productNumber = productNumber;
         this.type = type;
