@@ -11,6 +11,7 @@ import sample.cafekiosk.domain.product.ProductRepository;
 import sample.cafekiosk.domain.product.ProductType;
 import sample.cafekiosk.domain.stock.Stock;
 import sample.cafekiosk.domain.stock.StockRepository;
+import sample.cafekiosk.service.order.request.OrderCreateServiceRequest;
 import sample.cafekiosk.service.order.response.OrderResponse;
 
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class OrderService {
      * 재고 감소 -> 동시성 고민
      * optimistic lock / pessimistic lock / ...
      */
-    public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+    public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
         List<String> productNumbers = request.getProductNumbers();
         List<Product> products = findProductsBy(productNumbers);
 
