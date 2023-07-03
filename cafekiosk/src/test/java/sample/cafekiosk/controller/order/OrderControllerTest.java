@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import sample.cafekiosk.ControllerTestSupport;
 import sample.cafekiosk.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.service.order.OrderService;
 
@@ -21,17 +22,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(OrderController.class)
-class OrderControllerTest {
+//@WebMvcTest(OrderController.class)
+class OrderControllerTest extends ControllerTestSupport {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
-    private OrderService orderService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+//    @Autowired
+//    private MockMvc mockMvc;
+//
+//    @MockBean
+//    private OrderService orderService;
+//
+//    @Autowired
+//    private ObjectMapper objectMapper;
 
     @DisplayName("신규 주문을 등록한다.")
     @Test

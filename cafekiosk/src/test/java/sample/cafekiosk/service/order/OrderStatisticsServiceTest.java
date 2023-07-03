@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import sample.cafekiosk.IntegrationTestSupport;
 import sample.cafekiosk.client.MailSendClient;
 import sample.cafekiosk.domain.history.mail.MailSendHistory;
 import sample.cafekiosk.domain.history.mail.MailSendHistoryRepository;
@@ -29,8 +30,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-class OrderStatisticsServiceTest {
+//@SpringBootTest
+class OrderStatisticsServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderStatisticsService orderStatisticsService;
@@ -47,8 +48,8 @@ class OrderStatisticsServiceTest {
     @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
 
-    @MockBean
-    private MailSendClient mailSendClient;
+//    @MockBean
+//    private MailSendClient mailSendClient;
 
     @AfterEach
     void tearDown() {

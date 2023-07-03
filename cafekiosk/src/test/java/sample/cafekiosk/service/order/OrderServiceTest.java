@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+import sample.cafekiosk.IntegrationTestSupport;
 import sample.cafekiosk.controller.order.request.OrderCreateRequest;
 import sample.cafekiosk.domain.order.OrderRepository;
 import sample.cafekiosk.domain.orderproduct.OrderProductRepository;
@@ -26,10 +27,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
-@SpringBootTest
+//@ActiveProfiles("test")
+//@SpringBootTest
 //@Transactional
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private ProductRepository productRepository;

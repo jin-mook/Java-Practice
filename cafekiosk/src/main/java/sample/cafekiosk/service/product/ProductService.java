@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductNumberFactory productNumberFactory;
 
     // 동시성 이슈 -> 빈도수가 낮다면 상품번호에 unique를 달고 재시도 로직을 작성해도 된다.
     // 정책을 001의 값이 아닌 uuid 같은 값을 이용하는 방법도 있다.
@@ -39,7 +40,7 @@ public class ProductService {
         // 001 002 003 004
         // DB에서 마지막 저장된 Product의 상품 번호를 읽어와서 +1
         // 009 -> 010
-        String nextProductNumber = createNextProductNumber();
+        String nextProductNumber = productNumberFactory.createNextProductNumber();
 
         Product product = request.toEntity(nextProductNumber);
         Product savedProduct = productRepository.save(product);
@@ -57,15 +58,15 @@ public class ProductService {
     }
 
 
-    private String createNextProductNumber() {
-        String latestProductNumber = productRepository.findLatestProductNumber();
-        if (latestProductNumber == null) {
-            return "001";
-        }
-        int latestProductNumberInt = Integer.parseInt(latestProductNumber);
-        int nextProductNumberInt = latestProductNumberInt + 1;
-
-        return String.format("%03d", nextProductNumberInt);
-    }
+//    private String createNextProductNumber() {
+//        String latestProductNumber = productRepository.findLatestProductNumber();
+//        if (latestProductNumber == null) {
+//            return "001";
+//        }
+//        int latestProductNumberInt = Integer.parseInt(latestProductNumber);
+//        int nextProductNumberInt = latestProductNumberInt + 1;
+//
+//        return String.format("%03d", nextProductNumberInt);
+//    }
 
 }
