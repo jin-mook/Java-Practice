@@ -1,0 +1,38 @@
+server:
+  port: 0
+
+spring:
+  application:
+    name: order-service
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+
+eureka:
+  instance:
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+
+  client:
+    # 서버로부터 인스턴스들의 정보를 주기적으로 가져올 것인지 설정하는 속성
+    # true로 설정하면, 갱신 된 정보를 받겠다는 설정입니다.
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    com.example.orderservice: DEBUG
