@@ -29,10 +29,10 @@ class NamedLockStockFacadeTest {
         stockRepository.saveAndFlush(stock);
     }
 
-    @AfterEach
-    void after() {
-        stockRepository.deleteAll();
-    }
+//    @AfterEach
+//    void after() {
+//        stockRepository.deleteAll();
+//    }
 
 
     @Test

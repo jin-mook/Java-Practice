@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  oracledb:
+    image: ghcr.io/live-feed/live-feed-oracledb:dev
+    container_name: oracledb
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PWD: password
+      ORACLE_CHARACTERSET: KO16KSC5601
+      TZ: Asia/Seoul
+    restart: always
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: "jdbc"
+
+  postgresql:
+    image: postgres
+    container_name: postgresql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "jdbc"
