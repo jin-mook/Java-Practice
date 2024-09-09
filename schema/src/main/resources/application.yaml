@@ -1,0 +1,19 @@
+spring:
+  kafka:
+    consumer:
+      group-id: schema-etl-application
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+#    bootstrap-servers: kafka1:9092,kafka2:9093,kafka3:9094
+    bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+#    streams:
+#      application-id: schema-etl-application
+#      bootstrap-servers: kafka1:9092,kafka2:9093,kafka3:9094
+#      default:
+#        key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#        value-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+#      state-dir: /tmp/kafka-streams
