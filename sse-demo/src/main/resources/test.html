@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSE Test Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #events {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 300px;
+            height: 200px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+        button {
+            margin-top: 10px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<h1>Server Sent Events Test Client</h1>
+<button onclick="sendRequest()">Trigger Event on Server</button>
+<div id="events"></div>
+
+<script>
+    const eventSource = new EventSource('http://localhost:8084/api/sse/register');
+
+    eventSource.addEventListener("article update", function(event) {
+        console.log(event)
+        console.log('New event from server:', event.data);
+        const eventsDiv = document.getElementById('events');
+        const message = document.createElement('div');
+        message.textContent = event.data;
+        eventsDiv.appendChild(message);
+    })
+
+    eventSource.onmessage = function(event) {
+        console.log(event)
+        console.log('New event from server:', event.data);
+        const eventsDiv = document.getElementById('events');
+        const message = document.createElement('div');
+        message.textContent = event.data;
+        eventsDiv.appendChild(message);
+    };
+
+    eventSource.onerror = function(error) {
+        console.error('EventSource failed:', error);
+        // eventSource.close(); // 연결 문제 발생 시 연결을 종료합니다.
+    };
+
+    // eventSource.
+
+    function sendRequest() {
+        fetch('http://localhost:8084/api/sse/send', {
+            method: 'GET'
+        }).then(response => {
+            console.log('Server triggered:', response.statusText);
+        }).catch(error => {
+            console.error('Error triggering server:', error);
+        });
+    }
+</script>
+</body>
+</html>

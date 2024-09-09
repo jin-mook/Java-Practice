@@ -1,0 +1,8 @@
+### 메시지 한개만 보내기
+GET http://localhost:8081/one-record
+
+### 메시지 여러개 보내기
+GET http://localhost:8081/count-record
+
+### 트랜잭션 메시지 한개 보내기
+GET http://localhost:8081/transaction

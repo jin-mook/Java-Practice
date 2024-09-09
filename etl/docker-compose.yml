@@ -1,0 +1,236 @@
+version: '3.8'
+
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka1:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      # KAFKA_BROKER_ID: 1
+      # KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1:9092,PLAINTEXT_INTERNAL://kafka1:29092
+      # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
+      # KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      # KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      # KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka1:29092
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,PLAINTEXT_INTERNAL://0.0.0.0:29092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  kafka2:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9093:9093"
+    environment:
+      # KAFKA_BROKER_ID: 2
+      # KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2:9093,PLAINTEXT_INTERNAL://kafka2:29093
+      # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093,PLAINTEXT_INTERNAL://0.0.0.0:29093
+      # KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      # KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      # KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9093,PLAINTEXT_INTERNAL://kafka2:29093
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093,PLAINTEXT_INTERNAL://0.0.0.0:29093
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      
+
+  kafka3:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9094:9094"
+    environment:
+      # KAFKA_BROKER_ID: 3
+      # KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka3:9094,PLAINTEXT_INTERNAL://kafka3:29094
+      # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9094,PLAINTEXT_INTERNAL://0.0.0.0:29094
+      # KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      # KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      # KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      # KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      KAFKA_BROKER_ID: 3
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9094,PLAINTEXT_INTERNAL://kafka3:29094
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9094,PLAINTEXT_INTERNAL://0.0.0.0:29094
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka1:29092,PLAINTEXT://kafka2:29093,PLAINTEXT://kafka3:29094
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+      SCHEMA_REGISTRY_HOST_NAME: localhost
+
+  kafka-connect:
+    image: debezium/connect:2.7
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - schema-registry
+    ports:
+      - "8083:8083"
+    environment:
+      BOOTSTRAP_SERVERS: kafka1:29092,kafka2:29093,kafka3:29094
+      GROUP_ID: "1"
+      CONFIG_STORAGE_TOPIC: "docker-connect-configs"
+      OFFSET_STORAGE_TOPIC: "docker-connect-offsets"
+      STATUS_STORAGE_TOPIC: "docker-connect-status"
+      # KEY_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+      # VALUE_CONVERTER: "io.confluent.connect.avro.AvroConverter"
+      KEY_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      VALUE_CONVERTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+      CONFIG_STORAGE_REPLICATION_FACTOR: 3
+      OFFSET_STORAGE_REPLICATION_FACTOR: 3
+      STATUS_STORAGE_REPLICATION_FACTOR: 3
+      PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+      REST_PORT: 8083
+      CONNECT_PRODUCER_CONFIGURATION: "topic.creation.enable=true"
+      CONNECT_CONSUMER_CONFIGURATION: "topic.creation.enable=true"
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mysql-source
+    # volumes:
+    #   - mysql-data:/var/lib/mysql
+
+  # postgres:
+  #   image: postgres:13
+  #   ports:
+  #     - "5432:5432"
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: postgres-source
+  #   volumes:
+  #     - ./postgresql.conf:/etc/postgresql/postgresql.conf
+  #     - ./initdb:/docker-entrypoint-initdb.d
+  #   command: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
+
+  postgres:
+    image: quay.io/debezium/example-postgres
+    ports:
+     - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres-source
+
+  # mongo:
+  #   image: quay.io/debezium/example-mongodb
+  #   hostname: mongo
+  #   ports:
+  #    - 27017:27017
+  #   environment:
+  #    - MONGODB_USER=debezium
+  #    - MONGODB_PASSWORD=dbz
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    command: >
+      bash -c "mongod --replSet rs0 --bind_ip_all"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: debezium
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 18081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: debezium
+      ME_CONFIG_MONGODB_ADMINPASSWORD: password
+      ME_CONFIG_MONGODB_URL: mongodb://debezium:password@mongo:27017/
+      ME_CONFIG_BASICAUTH: false
+
+  ksqldb-server:
+    image: confluentinc/ksqldb-server
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+      - schema-registry
+    ports:
+      - "8088:8088"
+    environment:
+      KSQL_CONFIG_DIR: "/etc/ksqldb"
+      KSQL_BOOTSTRAP_SERVERS: "kafka1:29092,kafka2:29093,kafka3:29094"
+      KSQL_HOST_NAME: "ksqldb-server"
+      KSQL_LISTENERS: "http://0.0.0.0:8088"
+      KSQL_CACHE_MAX_BYTES_BUFFERING: 0
+      KSQL_KSQL_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
+
+  ksqldb-cli:
+    image: confluentinc/ksqldb-cli
+    depends_on:
+      - ksqldb-server
+    entrypoint: /bin/sh
+    tty: true
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "18080:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: "local"
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka1:29092,kafka2:29093,kafka3:29094"
+      KAFKA_CLUSTERS_0_ZOOKEEPER: "zookeeper:2181"
+      KAFKA_CLUSTERS_0_KSQLDB_SERVER: "http://ksqldb-server:8088"
+      KAFKA_CLUSTERS_0_SCHEMA_REGISTRY: "http://schema-registry:8081"
+      KAFKA_CLUSTERS_0_KAFKA_CONNECT_0_NAME: "connect-cluster"
+      KAFKA_CLUSTERS_0_KAFKA_CONNECT_0_ADDRESS: "http://kafka-connect:8083"
+      KAFKA_CLUSTERS_0_KAFKA_CONNECT_0_BASIC_AUTH_ENABLED: "false"
+
+# volumes:
+#   mysql-data:
+#   postgres-data:
+#   mongo-data:

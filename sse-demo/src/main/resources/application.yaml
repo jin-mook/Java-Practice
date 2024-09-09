@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: sse-demo
+
+  datasource:
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;MODE=MySQL
+#  datasource:
+#    username: root
+#    password: password
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3307/live_feed?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+#  h2:
+#    console:
+#      enabled: true
+
+server:
+  port: 8084
+
+  tomcat:
+    accept-count: 5
+    max-connections: 150
+    threads:
+      max: 50
+      min-spare: 20
+
+#logging:
+#  level:
+#    org.springframework.transaction.interceptor: DEBUG
+#    org.springframework.jdbc.datasource: DEBUG
+#    org.springframework.orm.jpa: DEBUG
+#    org.springframework.transaction: trace

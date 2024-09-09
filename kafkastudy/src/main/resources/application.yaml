@@ -1,0 +1,42 @@
+spring:
+  kafka:
+    consumer:
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: latest
+      isolation-level: read_committed
+    listener:
+      type: single
+      ack-mode: manual_immediate
+#      ack-mode: record
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      retries: 5
+      transaction-id-prefix: test-transaction-
+      acks: -1
+    #      properties:
+#        transactional.id: tran-id-1
+#        linger.ms: 10000
+#        compression.type: gzip
+
+
+
+
+    bootstrap-servers: localhost:9093
+    retry:
+      topic:
+        attempts: 2
+
+server:
+  port: 8081
+
+logging:
+  level:
+    org.springframework.kafka.listener.KafkaMessageListenerContainer: debug
+    org.springframework.transaction: trace
+    org.springframework.kafka.transaction: debug
+    org.springframework.kafka.core: trace #kafka 로그
+    org.springframework.transaction.interceptor: trace # 트랜잭션 로그
